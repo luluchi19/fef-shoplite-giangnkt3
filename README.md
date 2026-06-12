@@ -2,6 +2,8 @@
 
 > A multi-page shopping website built with vanilla HTML, CSS, and JavaScript. Product data is fetched from the [Fake Store API](https://fakestoreapi.com/).
 
+## Deploy at: https://luluchi19.github.io/fef-shoplite-giangnkt3
+
 ## 📸 Screenshots
 
 ![Home Page](assets/home.png)
