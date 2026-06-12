@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ShopLite — Create your account to enjoy exclusive deals and personalized shopping.">
+  <title>ShopLite — Register</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ═══════════ NAVBAR ═══════════ -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar__logo" id="logo">
+        <i class="fa-solid fa-bolt"></i>
+        <span>ShopLite</span>
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+
+      <nav class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-menu__link" id="nav-home">
+          <i class="fa-solid fa-house"></i> Home
+        </a>
+        <a href="cart.html" class="nav-menu__link nav-menu__link--cart" id="nav-cart-link">
+          <i class="fa-solid fa-shopping-cart"></i> Cart
+          <span id="cart-badge">0</span>
+        </a>
+        <a href="register.html" class="nav-menu__link active" id="nav-register">
+          <i class="fa-solid fa-user-plus"></i> Register
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="register-page">
+    <div class="container">
+      <div class="form-container">
+        <h1 class="form-container__title">
+          <i class="fa-solid fa-user-plus" style="color: var(--clr-primary);"></i> Create Account
+        </h1>
+        <p class="form-container__subtitle">Join ShopLite and start shopping today</p>
+
+        <!-- Success Message -->
+        <div class="form-success" id="form-success">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>Registration successful! Welcome to ShopLite.</span>
+        </div>
+
+        <form id="register-form" novalidate>
+          <!-- Full Name -->
+          <div class="form-group">
+            <label for="fullname">Full Name <span class="required">*</span></label>
+            <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" autocomplete="name">
+            <p class="form-error" id="fullname-error"></p>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email">Email Address <span class="required">*</span></label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="email">
+            <p class="form-error" id="email-error"></p>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="password">Password <span class="required">*</span></label>
+            <input type="password" id="password" name="password" placeholder="Minimum 6 characters" autocomplete="new-password">
+            <p class="form-error" id="password-error"></p>
+          </div>
+
+          <!-- Phone Number -->
+          <div class="form-group">
+            <label for="phone">Phone Number <span class="required">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" autocomplete="tel">
+            <p class="form-error" id="phone-error"></p>
+          </div>
+
+          <!-- Role / Select -->
+          <div class="form-group">
+            <label for="role">Your Role <span class="required">*</span></label>
+            <select id="role" name="role">
+              <option value="">-- Select a role --</option>
+              <option value="buyer">Buyer</option>
+              <option value="seller">Seller</option>
+              <option value="both">Both</option>
+            </select>
+            <p class="form-error" id="role-error"></p>
+          </div>
+
+          <!-- Agree to Terms -->
+          <div class="form-group">
+            <div class="form-checkbox">
+              <input type="checkbox" id="agree-terms" name="agree-terms">
+              <label for="agree-terms">I agree to the <a href="#">Terms and Conditions</a> <span class="required">*</span></label>
+            </div>
+            <p class="form-error" id="agree-terms-error"></p>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn--primary btn--lg" style="width: 100%;" id="submit-btn">
+            <i class="fa-solid fa-paper-plane"></i> Register
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <p>&copy; 2026 ShopLite. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Github"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/cart.js"></script>
+  <script src="js/register.js"></script>
+</body>
+</html>

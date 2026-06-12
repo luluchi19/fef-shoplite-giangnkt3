@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ShopLite — View your shopping cart, adjust quantities, and proceed to checkout.">
+  <title>ShopLite — Cart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ═══════════ NAVBAR ═══════════ -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar__logo" id="logo">
+        <i class="fa-solid fa-bolt"></i>
+        <span>ShopLite</span>
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+
+      <nav class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-menu__link" id="nav-home">
+          <i class="fa-solid fa-house"></i> Home
+        </a>
+        <a href="cart.html" class="nav-menu__link nav-menu__link--cart active" id="nav-cart-link">
+          <i class="fa-solid fa-shopping-cart"></i> Cart
+          <span id="cart-badge">0</span>
+        </a>
+        <a href="register.html" class="nav-menu__link" id="nav-register">
+          <i class="fa-solid fa-user-plus"></i> Register
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="container">
+        <nav class="page-header__breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <i class="fa-solid fa-chevron-right" style="font-size: 0.6rem;"></i>
+          <span>Shopping Cart</span>
+        </nav>
+        <h1 class="page-header__title">Shopping Cart</h1>
+      </div>
+    </section>
+
+    <!-- Cart Content -->
+    <section class="cart-page">
+      <div class="container">
+        <div id="cart-content">
+          <!-- Cart rendered here by JS -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <p>&copy; 2026 ShopLite. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Github"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    // ============================================================
+    // Cart page rendering logic
+    // ============================================================
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderCartPage();
+      setupNavToggle();
+    });
+
+    /**
+     * Setup mobile nav toggle
+     */
+    function setupNavToggle() {
+      const navToggle = document.getElementById("nav-toggle");
+      const navMenu = document.getElementById("nav-menu");
+      if (navToggle && navMenu) {
+        navToggle.addEventListener("click", () => {
+          navMenu.classList.toggle("active");
+          navToggle.classList.toggle("active");
+        });
+      }
+    }
+
+    /**
+     * Render the entire cart page
+     */
+    function renderCartPage() {
+      const container = document.getElementById("cart-content");
+      const cart = getCart();
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="cart-empty">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <h2>Your cart is empty</h2>
+            <p>Looks like you haven't added anything to your cart yet.</p>
+            <a href="index.html" class="btn btn--primary btn--lg">
+              <i class="fa-solid fa-arrow-left"></i> Continue Shopping
+            </a>
+          </div>
+        `;
+        return;
+      }
+
+      const subtotal = getCartTotal();
+      const shipping = subtotal > 50 ? 0 : 9.99;
+      const total = subtotal + shipping;
+
+      container.innerHTML = `
+        <div class="cart-layout">
+          <div class="cart-items" id="cart-items">
+            ${cart
+              .map(
+                (item) => `
+              <article class="cart-item" id="cart-item-${item.id}">
+                <div class="cart-item__image-wrapper">
+                  <img src="${item.image}" alt="${item.title}" class="cart-item__image">
+                </div>
+                <div class="cart-item__info">
+                  <h3 class="cart-item__title">${item.title}</h3>
+                  <p class="cart-item__price">$${(item.price * item.quantity).toFixed(2)}</p>
+                  <div class="cart-item__controls">
+                    <button class="qty-btn" data-action="decrease" data-id="${item.id}" aria-label="Decrease quantity">
+                      <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <span class="cart-item__qty">${item.quantity}</span>
+                    <button class="qty-btn" data-action="increase" data-id="${item.id}" aria-label="Increase quantity">
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+                <button class="btn btn--danger btn--sm cart-item__remove" data-action="remove" data-id="${item.id}">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </article>
+            `
+              )
+              .join("")}
+          </div>
+
+          <aside class="cart-summary">
+            <h2 class="cart-summary__title">Order Summary</h2>
+            <div class="cart-summary__row">
+              <span>Subtotal (${getCartCount()} items)</span>
+              <span>$${subtotal.toFixed(2)}</span>
+            </div>
+            <div class="cart-summary__row">
+              <span>Shipping</span>
+              <span>${shipping === 0 ? "Free" : "$" + shipping.toFixed(2)}</span>
+            </div>
+            <div class="cart-summary__total">
+              <span>Total</span>
+              <span>$${total.toFixed(2)}</span>
+            </div>
+            <button class="btn btn--primary btn--lg" id="checkout-btn">
+              <i class="fa-solid fa-credit-card"></i> Checkout
+            </button>
+            <a href="index.html" class="btn btn--outline" style="margin-top: var(--sp-sm);">
+              <i class="fa-solid fa-arrow-left"></i> Continue Shopping
+            </a>
+          </aside>
+        </div>
+      `;
+
+      setupCartEventDelegation();
+    }
+
+    /**
+     * Setup event delegation for cart items (one listener on parent)
+     */
+    function setupCartEventDelegation() {
+      const cartContent = document.getElementById("cart-content");
+      if (!cartContent) return;
+
+      cartContent.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-action]");
+        if (!btn) return;
+
+        const action = btn.dataset.action;
+        const productId = parseInt(btn.dataset.id, 10);
+
+        switch (action) {
+          case "increase": {
+            const cart = getCart();
+            const item = cart.find((i) => i.id === productId);
+            if (item) {
+              updateQuantity(productId, item.quantity + 1);
+              renderCartPage();
+            }
+            break;
+          }
+          case "decrease": {
+            const cart = getCart();
+            const item = cart.find((i) => i.id === productId);
+            if (item && item.quantity > 1) {
+              updateQuantity(productId, item.quantity - 1);
+              renderCartPage();
+            } else {
+              removeFromCart(productId);
+              renderCartPage();
+            }
+            break;
+          }
+          case "remove": {
+            removeFromCart(productId);
+            renderCartPage();
+            showToast("Item removed from cart.");
+            break;
+          }
+        }
+      });
+
+      // Checkout button
+      const checkoutBtn = document.getElementById("checkout-btn");
+      if (checkoutBtn) {
+        checkoutBtn.addEventListener("click", () => {
+          showToast("Checkout feature coming soon!");
+        });
+      }
+    }
+  </script>
+</body>
+</html>

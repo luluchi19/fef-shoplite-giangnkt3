@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ShopLite — Your modern, lightweight e-commerce destination. Browse products, discover deals, and shop with ease.">
+  <title>ShopLite — Home</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ═══════════ NAVBAR ═══════════ -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar__logo" id="logo">
+        <i class="fa-solid fa-bolt"></i>
+        <span>ShopLite</span>
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+
+      <nav class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-menu__link active" id="nav-home">
+          <i class="fa-solid fa-house"></i> Home
+        </a>
+        <a href="cart.html" class="nav-menu__link nav-menu__link--cart" id="nav-cart-link">
+          <i class="fa-solid fa-shopping-cart"></i> Cart
+          <span id="cart-badge">0</span>
+        </a>
+        <a href="register.html" class="nav-menu__link" id="nav-register">
+          <i class="fa-solid fa-user-plus"></i> Register
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ═══════════ HERO SECTION ═══════════ -->
+    <section class="hero" id="hero">
+      <div class="container">
+        <div class="hero__content">
+          <span class="hero__badge">
+            <i class="fa-solid fa-sparkles"></i> New Collection 2026
+          </span>
+          <h1 class="hero__title">
+            Discover Your <span class="highlight">Perfect Style</span> Today
+          </h1>
+          <p class="hero__subtitle">
+            Browse through our curated collection of premium products. From fashion to electronics — find everything you need at unbeatable prices.
+          </p>
+          <div class="hero__actions">
+            <a href="#products-section" class="btn btn--primary btn--lg">
+              <i class="fa-solid fa-arrow-down"></i> Shop Now
+            </a>
+            <a href="register.html" class="btn btn--outline btn--lg">
+              <i class="fa-solid fa-user-plus"></i> Join Us
+            </a>
+          </div>
+        </div>
+        <div class="hero__image">
+          <div class="hero__image-placeholder">
+            <i class="fa-solid fa-bag-shopping"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ PRODUCTS SECTION ═══════════ -->
+    <section class="section" id="products-section">
+      <div class="container">
+        <div class="section__header">
+          <h2 class="section__title">Our Products</h2>
+          <p class="section__subtitle">Explore our wide range of quality products</p>
+        </div>
+
+        <!-- Filters Bar -->
+        <div class="filters-bar" id="filters-bar">
+          <div class="filters-bar__search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="search-input" placeholder="Search products..." aria-label="Search products">
+          </div>
+          <select id="category-filter" aria-label="Filter by category">
+            <option value="all">All Categories</option>
+          </select>
+          <select id="sort-select" aria-label="Sort products">
+            <option value="default">Sort by</option>
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
+            <option value="name-asc">Name: A → Z</option>
+            <option value="name-desc">Name: Z → A</option>
+          </select>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-state" id="loading-state">
+          <div class="spinner"></div>
+          <p>Loading products...</p>
+        </div>
+
+        <!-- Error State -->
+        <div class="error-state" id="error-state" style="display: none;">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <p class="error-message">Failed to load products.</p>
+          <button class="btn btn--primary" onclick="loadProducts()">
+            <i class="fa-solid fa-rotate"></i> Try Again
+          </button>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="product-grid" id="product-grid">
+          <!-- Products rendered here by JS -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" id="pagination">
+          <!-- Pagination rendered here by JS -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__col">
+          <a href="index.html" class="navbar__logo">
+            <i class="fa-solid fa-bolt"></i>
+            <span>ShopLite</span>
+          </a>
+          <p class="footer__brand-desc">
+            Your go-to destination for premium products at affordable prices. Shop smart, live better.
+          </p>
+        </div>
+        <div class="footer__col">
+          <h3 class="footer__heading">Quick Links</h3>
+          <div class="footer__links">
+            <a href="index.html">Home</a>
+            <a href="cart.html">Cart</a>
+            <a href="register.html">Register</a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h3 class="footer__heading">Categories</h3>
+          <div class="footer__links">
+            <a href="#">Electronics</a>
+            <a href="#">Jewelry</a>
+            <a href="#">Men's Clothing</a>
+            <a href="#">Women's Clothing</a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h3 class="footer__heading">Contact</h3>
+          <div class="footer__links">
+            <a href="mailto:info@shoplite.com"><i class="fa-solid fa-envelope"></i> info@shoplite.com</a>
+            <a href="tel:+1234567890"><i class="fa-solid fa-phone"></i> +1 234 567 890</a>
+            <a href="#"><i class="fa-solid fa-location-dot"></i> Ha Noi, Viet Nam</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 ShopLite. All rights reserved.</p>
+        <div class="footer__socials">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Github"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
